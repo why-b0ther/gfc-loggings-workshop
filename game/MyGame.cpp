@@ -52,8 +52,14 @@ void CMyGame::OnUpdate()
 				// pLogging is your logging
 				// pObstacle is the obstacle he encountered - platform, wall, or another logging
 				//
-
-
+				if (pObstacle->is("platform"))
+					pLogging->Walk(pObstacle);
+				if (((pObstacle->is("wall") && !pObstacle->is("penetrable")) & !pLogging->is("ghostling")) || (pObstacle->is("logging") && pObstacle->is("blocked") && !pLogging->is("ghostling")))
+					pLogging->Bounce(pObstacle);
+				if (pLogging->is("blocked"))
+					pLogging->Stand(pLogging);
+				if (pObstacle->is("switch"))
+					pLogging->Switch(pObstacle);
 
 
 			}
